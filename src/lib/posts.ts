@@ -14,6 +14,9 @@ export interface PostData {
   excerpt: string;
   contentHtml?: string;
   tags?: string[];
+  readingTime?: number;
+  next?: PostData;
+  prev?: PostData;
 }
 
 export function getSortedPostsData(): PostData[] {

@@ -1,7 +1,11 @@
 import { getAllPostIds, getPostData } from '@/lib/posts';
 import Link from 'next/link';
 
-export async function generateStaticParams() {
+type StaticParams = {
+  params: { id: string };
+}[];
+
+export function generateStaticParams(): StaticParams {
   const paths = getAllPostIds();
   return paths;
 }
@@ -121,8 +125,9 @@ function SocialShare({ title, url }: { title: string, url: string }) {
   );
 }
 
-export default async function Post({ params }: { params: { id: string } }) {
-  const id = params.id;
+export default async function Post(props: any) {
+  const { params } = props;
+  const id = params.id as string;
   const postData = await getPostData(id);
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || ''}/posts/${id}`;
   const currentDate = new Date();
